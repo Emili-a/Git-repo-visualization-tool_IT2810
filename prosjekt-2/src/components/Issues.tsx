@@ -22,11 +22,11 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useLocalStorage } from '../useLocalStorage';
 
 //Hentet og modifisert fra mui tabbel med sortering og filtrering:
 //https://mui.com/material-ui/react-table/
-
-const token = "glpat-Wt--zzBda12_5e612yx2"
+// const token = "glpat-Wt--zzBda12_5e612yx2"
 const api = axios.create({
     baseURL: "https://gitlab.stud.idi.ntnu.no/api/v4/projects/17584/issues/"
   //   /repository/branches/
@@ -282,8 +282,7 @@ export const Issues = () => {
     const [issues, setIssues]: [IIssue[], (issues: IIssue[]) => void] = React.useState(defaultIssues);
     const [loading, setLoading]: [boolean, (loading: boolean) => void] = React.useState<boolean>(true);
     const [error, setError]: [string, (error: string) => void] = React.useState("");
-    
-
+    const [token, setToken] = useLocalStorage("token", "");
 
     useEffect(() => {
         // api.get('/', { headers: {"Authorization" : `Bearer glpat-Wt--zzBda12_5e612yx2`}}).then(res => {
@@ -291,10 +290,11 @@ export const Issues = () => {
         //     const data = res.data;
         //     setBranches({data})
         // });
+        var bearerToken = "Bearer " + token;
 
         api.get<IIssue[]>("/", { 
             headers: {
-                "Authorization" : `Bearer glpat-Wt--zzBda12_5e612yx2`
+                "Authorization" : bearerToken
             },
         }).then((response: { data: IIssue[]; }) => {
             setIssues(response.data);
