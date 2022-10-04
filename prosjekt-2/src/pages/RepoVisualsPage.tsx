@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/repoVisualsPage.css';
-
+import Api from '../Api'
+import { Commits } from '../components/Commits';
+import { Issues } from '../components/Issues';
 
 const VisualizationPage = () => {
     return (
@@ -27,6 +29,7 @@ const VisualizationPage = () => {
                         </div>
                         <div className="col-6">
                             <section className="sect1">
+                                {<Commits />}
                                 <p> data data data <br/> tabell eller liste</p>
                             </section>
                         </div>
@@ -38,12 +41,13 @@ const VisualizationPage = () => {
                     </div>
                     <div className="sectWrapper">
                         <div className="col-12">
-                            <h2>Branches</h2>
+                            <h2>Issues</h2>
+                                
                             <hr />
                         </div>
                         <div className="col-6">
                             <section className="sect1">
-                                <p> info - filter ...</p>
+                                {<Issues />}
                             </section>
                         </div>
                         <div className="col-6">

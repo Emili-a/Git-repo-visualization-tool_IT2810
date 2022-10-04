@@ -6,13 +6,15 @@ import Api from "./Api";
 import RepoVisuals from "./pages/RepoVisualsPage";
 import Test from "./pages/test";
 import React from "react";
+import { Commits } from "./components/Commits";
+import { Issues } from "./components/Issues";
 
 function App() {
   return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}/>
-          <Route path="Api" element={<Api />} />
+          <Route path="Issues" element={<Issues />} />
           <Route path="RepoVisuals" element={<RepoVisuals />} />
           <Route path="Test" element={<Test />} />
         </Routes>
