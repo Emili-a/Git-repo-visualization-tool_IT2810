@@ -9,8 +9,19 @@ import React, {useEffect, useState} from "react";
 import Login from "./Login";
 import { Commits } from "./components/Commits";
 import { Issues } from "./components/Issues";
+import { useLocalStorage } from "./useLocalStorage";
 
 function App() {
+  const [token, setToken] = useLocalStorage("token", "");
+
+  if(!token) {
+    return (
+    <div className="App">
+      <Login />
+    </div>
+    )
+  } else {
+
   return (
       <BrowserRouter>
         <Routes>
@@ -23,5 +34,5 @@ function App() {
       </BrowserRouter>
     );
   }
-
+}
 export default App;

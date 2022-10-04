@@ -33,6 +33,7 @@ const Login = () => {
       console.log("Repo funnet");
       setStorageId(repo.id);
       setStorageToken(repo.token);
+      window.location.reload();
     
     } 
     
