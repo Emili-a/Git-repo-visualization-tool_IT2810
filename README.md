@@ -1,8 +1,15 @@
 # Prosjekt 2
 
 
-
 ## Getting started
+
+* From the inner projekt-2 folder
+    npm install 
+* Run from the inner projekt-2 folder to get browser routing
+    npm i -D react-router-dom@latest
+* Start webpage by running from the inner projekt-2 folder
+    npm-start
+
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 

@@ -1,14 +1,12 @@
 import React from 'react';
+import DropdownTagFilter from '../components/DropdownTagFilter';
+import PieChart from '../components/piechart';
 import '../styles/repoVisualsPage.css';
 
 
 const VisualizationPage = () => {
     return (
         <div className='PageWrapper'>
-            <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-            </head>
-            <body>
                 <div className='header'>
                     <button>
                         Log out/change repo
@@ -27,12 +25,13 @@ const VisualizationPage = () => {
                         </div>
                         <div className="col-6">
                             <section className="sect1">
-                                <p> data data data <br/> tabell eller liste</p>
+                                <DropdownTagFilter />
+                                <p> data data data <br /> tabell eller liste</p>
                             </section>
                         </div>
                         <div className="col-6">
                             <section className="sect2">
-                                <img src="https://www.tibco.com/sites/tibco/files/media_entity/2022-01/PieChart-01.svg" alt="piechart"/>
+                                <img src="https://www.tibco.com/sites/tibco/files/media_entity/2022-01/PieChart-01.svg" alt="piechart" />
                             </section>
                         </div>
                     </div>
@@ -49,11 +48,11 @@ const VisualizationPage = () => {
                         <div className="col-6">
                             <section className="sect2">
                                 <h1>Repo</h1>
+                                <PieChart/>
                             </section>
                         </div>
                     </div>
                 </main>
-            </body>
         </div>
     )
 }

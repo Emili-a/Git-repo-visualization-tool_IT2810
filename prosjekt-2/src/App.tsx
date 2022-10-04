@@ -7,6 +7,8 @@ import RepoVisuals from "./pages/RepoVisualsPage";
 import Test from "./pages/test";
 import React from "react";
 
+//Browser routing er basert på model fra: https://www.w3schools.com/react/react_router.asp
+
 function App() {
   return (
       <BrowserRouter>
