@@ -7,19 +7,20 @@ import RepoVisuals from "./pages/RepoVisualsPage";
 import Test from "./pages/test";
 import React, {useEffect, useState} from "react";
 import Login from "./Login";
-
+import { Commits } from "./components/Commits";
+import { Issues } from "./components/Issues";
 
 function App() {
   return (
       <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="Login" element={<Login />} />
-        <Route path="Api" element={<Api />} />
-        <Route path="RepoVisuals" element={<RepoVisuals />} />
-        <Route path="Test" element={<Test />} />
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="Login" element={<Login />} />
+          <Route path="Issues" element={<Issues />} />
+          <Route path="RepoVisuals" element={<RepoVisuals />} />
+          <Route path="Test" element={<Test />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 
