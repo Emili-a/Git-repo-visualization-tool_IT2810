@@ -7,19 +7,21 @@ import RepoVisuals from "./pages/RepoVisualsPage";
 import Test from "./pages/test";
 import React, {useEffect, useState} from "react";
 import Login from "./Login";
-import {response} from "./Login";
 
-
-const useFetch = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
     
 
 
 function App() {
-  if (response.status != 200) {
-    var display = <Login></Login>
+  const [response, setResponse] = useState<Response | Record<string, any> >({});
+  const [url, setUrl] = useState("");
+
+
+  useEffect(() => {
+    console.log(response);
+  }, [response]);
+
+  if (response?.status != 200) {
+    var display = <Login setResponse={setResponse} setUrl={setUrl}></Login>
   }
   else {
     var display =
@@ -35,6 +37,6 @@ function App() {
   return (
       {display}
     );
-  }
+}
 
 export default App;
