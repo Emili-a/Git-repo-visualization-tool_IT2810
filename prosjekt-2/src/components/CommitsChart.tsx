@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useLocalStorage } from "../useLocalStorage";
+import { PieChart, Pie, Tooltip } from "recharts";
+
 
 const api = axios.create({
     baseURL: "https://gitlab.stud.idi.ntnu.no/api/v4/projects/"
@@ -28,24 +30,30 @@ export const Chart = () => {
     const [error, setError]: [string, (error: string) => void] = React.useState("");
 
     function countCommitsPer() {
-      const ICommitLength = commits.length;
-      const authors: string[] = [];
-      const commitAmount: number[] = [];
+        const ICommitLength = commits.length;
+        const authors: string[] = [];
+        const commitAmount: number[] = [];
 
-      for (let i = 0; i < ICommitLength; i++) {
-        if (authors.includes(commits[i].author_name)) {
-          commitAmount[authors.indexOf(commits[i].author_name)]++;
+        for (let i = 0; i < ICommitLength; i++) {
+            if (authors.includes(commits[i].author_name)) {
+            commitAmount[authors.indexOf(commits[i].author_name)]++;
         }
         if (!(authors.includes(commits[i].author_name))) {
-          authors.push(commits[i].author_name);
-          commitAmount.push(1);
+            authors.push(commits[i].author_name);
+            commitAmount.push(1);
         }
       }
-      const pieChartInfo: PieChartInfo = {
-        authors: authors,
-        commits: commitAmount,
-      }
-    return pieChartInfo;
+        const pieChartInfo: PieChartInfo = {
+            authors: authors,
+            commits: commitAmount,
+        }
+
+        const data = [];
+        for (let i = 0; i < pieChartInfo.authors.length; i++) {
+            data.push({ name: pieChartInfo.authors[i], value: pieChartInfo.commits[i] });
+        }
+
+    return data;
     }
     
     useEffect(() => {
@@ -67,13 +75,21 @@ export const Chart = () => {
             setLoading(false);
           });
     }, []);
-    
 
-  return (
-    <div>
-        <h1>Chart</h1>
-        {countCommitsPer().authors}
-        {countCommitsPer().commits}
-    </div>
-  );
+    return (
+        <div className="Pie">
+            <h1>Chart</h1>
+            <PieChart>
+                <Pie
+                data={countCommitsPer()}
+                dataKey="value" nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                fill="#8884d8"
+                label
+                />
+            </PieChart>
+        </div>
+    );
 }
