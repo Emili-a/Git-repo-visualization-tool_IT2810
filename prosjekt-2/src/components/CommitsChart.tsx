@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useLocalStorage } from "../useLocalStorage";
-import { PieChart, Pie, Tooltip } from "recharts";
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 
 
 const api = axios.create({
@@ -29,20 +29,19 @@ export const Chart = () => {
     const [loading, setLoading]: [boolean, (loading: boolean) => void] = React.useState<boolean>(true);
     const [error, setError]: [string, (error: string) => void] = React.useState("");
 
-    function countCommitsPer() {
-        const ICommitLength = commits.length;
+    function numberOfCommitsByUser() {
         const authors: string[] = [];
         const commitAmount: number[] = [];
 
-        for (let i = 0; i < ICommitLength; i++) {
+        for (let i = 0; i < commits.length; i++) {
             if (authors.includes(commits[i].author_name)) {
-            commitAmount[authors.indexOf(commits[i].author_name)]++;
+                commitAmount[authors.indexOf(commits[i].author_name)]++;
+            } else {
+                authors.push(commits[i].author_name);
+                commitAmount.push(1);
+            }
         }
-        if (!(authors.includes(commits[i].author_name))) {
-            authors.push(commits[i].author_name);
-            commitAmount.push(1);
-        }
-      }
+
         const pieChartInfo: PieChartInfo = {
             authors: authors,
             commits: commitAmount,
@@ -53,8 +52,8 @@ export const Chart = () => {
             data.push({ name: pieChartInfo.authors[i], value: pieChartInfo.commits[i] });
         }
         console.log(data);
-
-    return data;
+        // [ { name: 'name1', value: 400 }, { name: 'name2', value: 300 } ]
+        return data;
     }
     
     useEffect(() => {
@@ -76,22 +75,22 @@ export const Chart = () => {
             setLoading(false);
           });
     }, []);
-
+// https://stackoverflow.com/questions/52134350/set-height-and-width-for-responsive-chart-using-recharts-barchart
     return (
-        <div className="Pie">
-            <h1>Chart</h1>
-            <PieChart>
-                <Pie
-                data={countCommitsPer()}
-                dataKey="value"
-                cx={200}
-                cy={200}
-                outerRadius={80}
-                fill="#8884d8"
-                label
-                />
-                <Tooltip />
-            </PieChart>
+        <div className="Pie" style={{ height: "100%", width: '100%'}}>
+            <h1>Commits per person</h1>
+            <ResponsiveContainer height={410} width="100%">
+                <PieChart>
+                    <Pie
+                        data={numberOfCommitsByUser()}
+                        dataKey="value"
+                        outerRadius="80%"
+                        fill="darkred"
+                        label
+                    />
+                    <Tooltip />
+                </PieChart>
+            </ResponsiveContainer>
         </div>
     );
 }
