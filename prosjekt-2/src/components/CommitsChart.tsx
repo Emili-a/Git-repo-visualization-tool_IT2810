@@ -52,6 +52,7 @@ export const Chart = () => {
         for (let i = 0; i < pieChartInfo.authors.length; i++) {
             data.push({ name: pieChartInfo.authors[i], value: pieChartInfo.commits[i] });
         }
+        console.log(data);
 
     return data;
     }
@@ -82,9 +83,9 @@ export const Chart = () => {
             <PieChart>
                 <Pie
                 data={countCommitsPer()}
-                dataKey="value" nameKey="name"
-                cx="50%"
-                cy="50%"
+                dataKey="value"
+                cx={200}
+                cy={200}
                 outerRadius={80}
                 fill="#8884d8"
                 label
