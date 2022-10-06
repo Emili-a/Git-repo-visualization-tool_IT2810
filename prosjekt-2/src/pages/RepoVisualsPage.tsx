@@ -3,6 +3,7 @@ import '../styles/repoVisualsPage.css';
 import Api from '../Api'
 import { Commits } from '../components/Commits';
 import { Issues } from '../components/Issues';
+import { LogOut } from '../components/LogOut';
 
 const VisualizationPage = () => {
     return (
@@ -12,9 +13,7 @@ const VisualizationPage = () => {
             </head>
             <body>
                 <div className='header'>
-                    <button>
-                        Log out/change repo
-                    </button>
+                        {<LogOut />}
                     <h1>
                         Reponavn
                     </h1>
