@@ -30,7 +30,6 @@ const VisualizationPage = () => {
                         <div className="col-6">
                             <section className="sect1">
                                 {<Commits />}
-                                <p> data data data <br/> tabell eller liste</p>
                             </section>
                         </div>
                         <div className="col-6">

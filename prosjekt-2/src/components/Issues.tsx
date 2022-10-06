@@ -28,8 +28,7 @@ import { useLocalStorage } from '../useLocalStorage';
 //https://mui.com/material-ui/react-table/
 
 const api = axios.create({
-    baseURL: "https://gitlab.stud.idi.ntnu.no/api/v4/projects/17584/issues/"
-  //   /repository/branches/
+    baseURL: "https://gitlab.stud.idi.ntnu.no/api/v4/projects/"
 })
 
 interface IIssue {
@@ -212,16 +211,17 @@ export const Issues = () => {
     const [orderBy, setOrderBy] = React.useState<keyof IIssue>('title');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [issues, setIssues]: [IIssue[], (issues: IIssue[]) => void] = React.useState(defaultIssues);
     const [loading, setLoading]: [boolean, (loading: boolean) => void] = React.useState<boolean>(true);
     const [error, setError]: [string, (error: string) => void] = React.useState("");
     const [token, setToken] = useLocalStorage("token", "");
+    const [id, setId] = useLocalStorage("id", "");
 
     useEffect(() => {
         var bearerToken = "Bearer " + token;
-        api.get<IIssue[]>("/", { 
+        var repoId = "/" + id + "/issues";
+        api.get<IIssue[]>(repoId, { 
             headers: {
                 "Authorization" : bearerToken
             },
@@ -266,10 +266,6 @@ export const Issues = () => {
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
-
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - issues.length) : 0;
 
@@ -279,45 +275,27 @@ export const Issues = () => {
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
+            aria-labelledby="tableTitle"          >
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              // onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={issues.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
               {stableSort(issues, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  // const isItemSelected = isSelected(row.title);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      // onClick={(event) => handleClick(event, row.title)}
                       role="checkbox"
-                      // aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.title}
-                      // selected={isItemSelected}
                     >
-                      {/* <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </TableCell> */}
                       <TableCell
                         component="th"
                         id={labelId}
@@ -336,7 +314,7 @@ export const Issues = () => {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: (53) * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -355,10 +333,6 @@ export const Issues = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
       {error && <p className="error">{error}</p>}
     </Box>
   );
