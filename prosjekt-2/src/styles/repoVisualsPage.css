@@ -95,7 +95,7 @@
   }
   
   .row div section {
-    height: 40vh;
+    height: auto;
     border: 1px solid #b7e4c7;
     border-radius: 0.5rem;
     display: flex;

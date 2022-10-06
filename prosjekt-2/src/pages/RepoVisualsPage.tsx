@@ -45,14 +45,9 @@ const VisualizationPage = () => {
                                 
                             <hr />
                         </div>
-                        <div className="col-6">
+                        <div className="col-12">
                             <section className="sect1">
                                 {<Issues />}
-                            </section>
-                        </div>
-                        <div className="col-6">
-                            <section className="sect2">
-                                <h1>Repo</h1>
                             </section>
                         </div>
                     </div>
