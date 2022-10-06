@@ -35,7 +35,6 @@ const VisualizationPage = () => {
                         </div>
                         <div className="col-6">
                             <section className="sect2">
-                                
                                 {<Chart/>}
                             </section>
                         </div>

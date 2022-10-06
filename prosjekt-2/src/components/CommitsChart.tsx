@@ -89,6 +89,7 @@ export const Chart = () => {
                 fill="#8884d8"
                 label
                 />
+                <Tooltip />
             </PieChart>
         </div>
     );
