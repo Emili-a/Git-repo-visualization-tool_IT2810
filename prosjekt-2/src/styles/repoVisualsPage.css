@@ -86,6 +86,9 @@ hr {
   border-color: #6b9080;
 }
 
+.filters {
+  display:flex
+}
 .sectWrapper {
   background-color: #b7e4c7;
   height: auto;

@@ -1,48 +1,56 @@
 import React, { useState } from 'react';
-import Api from "../Api";
+import Select from 'react-select'
 
-
+//https://react-select.com/home
 // Desired behaviour
 // ta inn en array med options
 // vis opptions i en dropdown meny
 // lagre og ha mulighet for exportere valge options
 
-const options = [
-    { value: "red", label: "Red" },
-  { value: "green", label: "Green" },
-  { value: "yellow", label: "Yellow" },
-  { value: "blue", label: "Blue" },
-  { value: "white", label: "White" }
-];
-// Usefull links to enable mutiple select
-//https://yogeshchauhan.com/how-to-select-multiple-values-in-react-dropdown/
-//https://sebhastian.com/handlechange-react/
-//https://www.pluralsight.com/guides/how-to-get-selected-value-from-a-mapped-select-input-in-react
+/*interface Options {
+  value: String
+  label: String
+}
+*/
 
-// event.target gives new value
-function DropdownTagFilter() {
-    const [selected, setSelected] = useState([] as any);    
-    const handleChange = (event:any) => {
-        let value = Array.from(
-            event.target.selectedOptions,
-            (option:any) => option.value
-          );
-        setSelected( {options:value});
-        console.log(selected)
-      };
-      // sets selected afer update
+/*
+const options: Option[] = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
+*/
 
-    return (
-        <div >
-            <select 
-            multiple 
-            onChange={handleChange}>
-            value= {options.map((option) => (
-              <option value={option.value}>{option.label}</option>
-            ))}
-            </select>
-        </div>
-    )
+//pas props upp to Parent
+
+function DropdownTagFilter(props: any) {
+  //const [selectedOptions, setSelectedOptions] = useState([]);
+
+
+  const handleChange = (options: any) => {
+    props.setSelectedOptions(options.map((o:any) => (
+      <option value={o.value}>{o.label}</option>
+    )));
+  };
+
+  //console.log(selectedOptions)
+
+
+  return (
+    <div >
+      <Select
+        defaultValue={props.filterOptions}
+        isMulti
+        name={props.filterName} //make this flexible later
+        options={props.filterOptions}
+        className="basic-multi-select"
+        classNamePrefix="select"
+        placeholder={props.filterName}
+        onChange={handleChange}
+      />
+    </div>
+
+  )
 }
 
 export default DropdownTagFilter

@@ -46,6 +46,7 @@ function findAutoursCommits(choosenTags: string[], commits: string[][]) {
     return commitList;
 }
 
+// https://forum.freecodecamp.org/t/newline-in-react-string-solved/68484
 
 function NewlineText(props: any) {
     const text = props.text;
