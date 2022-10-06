@@ -13,7 +13,6 @@ const VisualizationPage = () => {
             </head>
             <body>
                 <div className='header'>
-                        Log out/change repo
                         {<LogOut />}
                     <h1>
                         Reponavn
