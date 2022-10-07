@@ -5,16 +5,19 @@ import { Commits } from '../components/Commits';
 import { Issues } from '../components/Issues';
 import { LogOut } from '../components/LogOut';
 import { Chart } from '../components/CommitsChart';
+import { Authors } from '../components/authors';
 
-const options = [
+/* const options = [
     { value: 'philiptinius', label: 'philiptinius' },
     { value: 'emilima', label: 'emilima' },
-    { value: 'Philip Tinius Hansen Crome', label: 'Philip Tinius Hansen Crome' }
-]
-
+    { value: 'Philip Tinius Hansen Crome', label: 'Philip Tinius Hansen Crome' },
+    { value: 'kbrattli', label: 'kbrattli' }
+] */
 
 const VisualizationPage = () => {
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const options = Authors();
+
 
     return (
         <div className='PageWrapper'>

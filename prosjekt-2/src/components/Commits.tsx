@@ -20,7 +20,7 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useLocalStorage } from '../useLocalStorage';
 
@@ -28,19 +28,19 @@ import { useLocalStorage } from '../useLocalStorage';
 //https://mui.com/material-ui/react-table/
 
 const api = axios.create({
-    baseURL: "https://gitlab.stud.idi.ntnu.no/api/v4/projects/"
+  baseURL: "https://gitlab.stud.idi.ntnu.no/api/v4/projects/"
 })
 
 
 interface ICommit {
-    id: string;
-    title: string;
-    author_name: string;
-    authored_date: string;
-  }
+  id: string;
+  title: string;
+  author_name: string;
+  authored_date: string;
+}
 
 
-const defaultCommits:ICommit[] = [];
+const defaultCommits: ICommit[] = [];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -102,7 +102,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Author',
   },
   {
-  id: 'authored_date',
+    id: 'authored_date',
     numeric: true,
     disablePadding: false,
     label: 'Date',
@@ -118,7 +118,7 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const {order, orderBy, onRequestSort } =
+  const { order, orderBy, onRequestSort } =
     props;
   const createSortHandler =
     (property: keyof ICommit) => (event: React.MouseEvent<unknown>) => {
@@ -209,82 +209,80 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 };
 
 export const Commits = (props: any) => {
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof ICommit>('title');
-    const [selected, setSelected] = React.useState<readonly string[]>([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const [commits, setCommits]: [ICommit[], (commits: ICommit[]) => void] = React.useState(defaultCommits);
-    const [originalCommits, setOriginalCommits]: [ICommit[], (commits: ICommit[]) => void] = React.useState(defaultCommits);
-    const [loading, setLoading]: [boolean, (loading: boolean) => void] = React.useState<boolean>(true);
-    const [error, setError]: [string, (error: string) => void] = React.useState("");
-    const [token, setToken] = useLocalStorage("token", "");
-    const [id, setId] = useLocalStorage("id", "");
+  const [order, setOrder] = React.useState<Order>('asc');
+  const [orderBy, setOrderBy] = React.useState<keyof ICommit>('title');
+  const [selected, setSelected] = React.useState<readonly string[]>([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [commits, setCommits]: [ICommit[], (commits: ICommit[]) => void] = React.useState(defaultCommits);
+  const [originalCommits, setOriginalCommits]: [ICommit[], (commits: ICommit[]) => void] = React.useState(defaultCommits);
+  const [loading, setLoading]: [boolean, (loading: boolean) => void] = React.useState<boolean>(true);
+  const [error, setError]: [string, (error: string) => void] = React.useState("");
+  const [token, setToken] = useLocalStorage("token", "");
+  const [id, setId] = useLocalStorage("id", "");
 
-    const dateStringer = (string: string) => {
-      var noT = string.split("T");
-      var stringDate = noT[0];
-      return stringDate;
-    }
-
-    useEffect(() => {
-        var bearerToken = "Bearer " + token;
-        var repoId = "/" + id + "/repository/commits";
-        api.get<ICommit[]>(repoId, { 
-            headers: {
-                "Authorization" : bearerToken
-            },
-        }).then((response: { data: ICommit[]; }) => {
-            setOriginalCommits(response.data);
-            setCommits(response.data);
-            setLoading(false);
-          }).catch((ex: { response: { status: number; }; }) => {
-            const error =
-            ex.response.status === 404
-              ? "Resource Not found"
-              : "An unexpected error has occurred";
-            setError(error);
-            setLoading(false);
-          });
-    }, []); 
-
-
-
-
-    type Option = {
-      value: string;
-      label: string;
+  const dateStringer = (string: string) => {
+    var noT = string.split("T");
+    var stringDate = noT[0];
+    return stringDate;
   }
-  
- /*  interface ICommit {
-    id: string;
-    title: string;
-    author_name: string;
-  } */
+
+  useEffect(() => {
+    var bearerToken = "Bearer " + token;
+    var repoId = "/" + id + "/repository/commits";
+    api.get<ICommit[]>(repoId, {
+      headers: {
+        "Authorization": bearerToken
+      },
+    }).then((response: { data: ICommit[]; }) => {
+      setOriginalCommits(response.data);
+      setCommits(response.data);
+      setLoading(false);
+    }).catch((ex: { response: { status: number; }; }) => {
+      const error =
+        ex.response.status === 404
+          ? "Resource Not found"
+          : "An unexpected error has occurred";
+      setError(error);
+      setLoading(false);
+    });
+  }, []);
 
 
-  const filterChoises = props.filters
+
+  type Option = {
+    value: string;
+    label: string;
+  }
+
+
+  const memoizedFilter = useMemo(() => {
+    const filterChoises = props.filters
     const filterArray: string[] = [];
     for (var i of filterChoises) {
-        const obj: Option = ((Object.values(i))[4]) as Option
-        filterArray.push(obj.label)
+      const obj: Option = ((Object.values(i))[4]) as Option
+      filterArray.push(obj.label)
     }
+    return filterArray
+  }, [props.filters])
 
-    useEffect(() => {
-      function findFilteredData(data: ICommit[]) {
-        let dataList: ICommit[] = [];
-        for (var i of filterArray) {
-            for (var j of data) {
-                if (i === j.author_name) {
-                  dataList.push(j)
-                }
-            }
+
+
+  useEffect(() => {
+    function findFilteredData(data: ICommit[]) {
+      let dataList: ICommit[] = [];
+      for (var i of memoizedFilter) {
+        for (var j of data) {
+          if (i === j.author_name) {
+            dataList.push(j)
+          }
         }
-        return dataList;
+      }
+      return dataList;
     }
-      setCommits(findFilteredData(originalCommits))
+    setCommits(findFilteredData(originalCommits))
 
-    }, [originalCommits, filterArray]);
+  }, [memoizedFilter, originalCommits]);
 
 
 
@@ -324,7 +322,7 @@ export const Commits = (props: any) => {
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: "50%"}}
+            sx={{ minWidth: "50%" }}
             aria-labelledby="tableTitle"
           >
             <EnhancedTableHead
@@ -390,7 +388,7 @@ export const Commits = (props: any) => {
     </Box>
   );
 }
-  
+
 
 
 
