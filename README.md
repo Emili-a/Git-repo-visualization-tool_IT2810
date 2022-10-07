@@ -12,7 +12,7 @@ Identifiserende informasjon om repo blir lagret i local storage ved hjelp av use
 
 Responsiv web design ble brukt i utformingen av applikasjonen og forskjellige elementer tilpasser seg skjermen og teknologien siden befinner seg på. Vi har tatt i bruk viewport, media-queries, flex-box osv. for å løse dette. Vi har ikke brukt noen bilder på siden, så det er ingen skalering av bilder, men dette er ikke noe vi ville hatt noe problem med å implementere hvis det hadde vært nødvendig.
 
-=======
+---
 
 ## Oppstart
 
