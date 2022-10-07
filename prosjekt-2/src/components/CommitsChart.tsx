@@ -51,8 +51,6 @@ export const Chart = () => {
         for (let i = 0; i < pieChartInfo.authors.length; i++) {
             data.push({ name: pieChartInfo.authors[i], value: pieChartInfo.commits[i] });
         }
-        console.log(data);
-        // [ { name: 'name1', value: 400 }, { name: 'name2', value: 300 } ]
         return data;
     }
     

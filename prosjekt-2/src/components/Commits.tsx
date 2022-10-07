@@ -201,11 +201,6 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   );
 };
 
-interface PieChartInfo {
-  authors: string[];
-  commits: number[];
-}
-
 export const Commits = () => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof ICommit>('title');
@@ -217,28 +212,6 @@ export const Commits = () => {
     const [error, setError]: [string, (error: string) => void] = React.useState("");
     const [token, setToken] = useLocalStorage("token", "");
     const [id, setId] = useLocalStorage("id", "");
-
-
-    function countCommitsPer() {
-      const ICommitLength = commits.length;
-      const authors: string[] = [];
-      const commitAmount: number[] = [];
-
-      for (let i = 0; i < ICommitLength; i++) {
-        if (authors.includes(commits[i].author_name)) {
-          commitAmount[authors.indexOf(commits[i].author_name)]++;
-        }
-        if (!(authors.includes(commits[i].author_name))) {
-          authors.push(commits[i].author_name);
-          commitAmount.push(1);
-        }
-      }
-      const pieChartInfo: PieChartInfo = {
-        authors: authors,
-        commits: commitAmount,
-      }
-    return pieChartInfo;
-    }
     
     useEffect(() => {
         var bearerToken = "Bearer " + token;
