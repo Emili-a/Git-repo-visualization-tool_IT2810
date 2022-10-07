@@ -11,14 +11,15 @@ For å hente data fra GitLab brukte vi axios. Vi ber brukeren om id og token fra
 Identifiserende informasjon om repo blir lagret i local storage ved hjelp av useLocalStorage.tsx. Dette gjør at resten av appen har tilgang til det relevante repoet og at brukere kommer tilbake til sitt repo hvis de lukker nettleseren. Man kan også logge ut fra hovedsiden for å få tilgang til et annet repo.
 
 Responsiv web design ble brukt i utformingen av applikasjonen og forskjellige elementer tilpasser seg skjermen og teknologien siden befinner seg på. Vi har tatt i bruk viewport, media-queries, flex-box osv. for å løse dette. Vi har ikke brukt noen bilder på siden, så det er ingen skalering av bilder, men dette er ikke noe vi ville hatt noe problem med å implementere hvis det hadde vært nødvendig.
+
 =======
-## Getting started
 
-* From the inner projekt-2 folder
-    npm install 
-* Run from the inner projekt-2 folder to get browser routing
-    npm i -D react-router-dom@latest
-* Start webpage by running from the inner projekt-2 folder
-    npm-start
+## Oppstart
 
+* Fra indre `prosjekt-2`-mappe:
+    `npm install`
+* Start nettsiden (igjen fra indre `prosjekt-2`):
+   `npm start`
+* Kjør tester:
+    `jest`
 
