@@ -1,48 +1,28 @@
 # Prosjekt 2
+Prosjekt 2 er et react-basert git repo visualiseringsverktøy utviklet etter kravene i beskrivelsen til oppgaven med samme navn. Prosjekt 2 lar deg logge inn i et git repo ved hjelp av en id og en gyldig token. Når du har logget inn blir du tatt videre til en side som gir deg oversikt over commits og issues for ditt repo. Både commits og issues vises i tabeller og de forskjellige verdiene i tabellene kan sorteres alfabetisk. I tillegg er det et pie chart koblet til commits som viser forholdet antall commits for hvert gruppemedlem. 
+
+# Løsning av tenkiske krav
+Prosjekt 2 er i all hovedsak skrevet i Typescript, et språk få av gruppemedlemmene hadde kjennskap til i forkant av prosjektet. Det var her de fleste av problemene oppsto i løpet av utviklingen. React skapte også litt hodebry siden det var lite forkunnskaper her også. Alt i alt ser gruppa dog på prosjektet som en lærerik erfaring med tanke på bruk av disse verktøyene, i og med at vi fikk solid innføring i bruk av state, props og typer. 
+
+Tabellene som brukes for å visualisere data for commits og issues er basert på material ui sin implementering av react table, men er modifisert i stor grad for å tilpasse seg våre krav. 
+
+For å hente data fra GitLab brukte vi axios. Vi ber brukeren om id og token fra et repo på idi sitt domene og henter deretter den relevante informasjonen derifra. I tillegg har vi løsninger for errorhåndtering ved ugyldig repo.
+
+Identifiserende informasjon om repo blir lagret i local storage ved hjelp av useLocalStorage.tsx. Dette gjør at resten av appen har tilgang til det relevante repoet og at brukere kommer tilbake til sitt repo hvis de lukker nettleseren. Man kan også logge ut fra hovedsiden for å få tilgang til et annet repo.
+
+Responsiv web design ble brukt i utformingen av applikasjonen og forskjellige elementer tilpasser seg skjermen og teknologien siden befinner seg på. Vi har tatt i bruk viewport, media-queries, flex-box osv. for å løse dette. Vi har ikke brukt noen bilder på siden, så det er ingen skalering av bilder, men dette er ikke noe vi ville hatt noe problem med å implementere hvis det hadde vært nødvendig.
+
+Løsaningen skal ha responsiv web design hvor layout, skalering og interaksjonsmuligheter tilpasses type enhet og størrelse på skjerm. Det skal se bra ut og interaksjonen skal fungere både på mobil, pad og pc med skjerm av forskjellig størrelse.
+
+Prosjektet er basert på Node og npm 
 
 
 
-## Getting started
+Prosjektet baseres på Node og bruk av Node Package Manager (NPM). Bruk versjon 16.X av node.js og version 8.X av npm.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Bruk create-react-app xxx --template typescript for å sette opp prosjektet
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.stud.idi.ntnu.no/it2810-h22/Team-61/prosjekt-2.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.stud.idi.ntnu.no/it2810-h22/Team-61/prosjekt-2/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
+Bruk versjoin 18 av React
 
 # Editing this README
 
