@@ -9,9 +9,9 @@ import { LogOut } from '../components/LogOut';
 import { Chart } from '../components/CommitsChart';
 
 const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+    { value: 'philiptinius', label: 'philiptinius' },
+    { value: 'emilima', label: 'emilima' },
+    { value: 'Philip Tinius Hansen Crome', label: 'Philip Tinius Hansen Crome' }
 ]
 
 
@@ -36,14 +36,12 @@ const VisualizationPage = () => {
                         <div className="col-12">
                             <div className="filters">
                                 <DropdownTagFilter setSelectedOptions={setSelectedOptions} filterOptions={options} filterName="Author" />
-                                <DropdownTagFilter filterOptions={options} filterName="Issues" />
-                                <p> info - filter ... {selectedOptions}</p>
                             </div>
                             <hr />
                         </div>
                         <div className="col-6">
                             <section className="sect1">
-                                {<Commits />}
+                                {<Commits filters={selectedOptions}/>}
                             </section>
                         </div>
                         <div className="col-6">

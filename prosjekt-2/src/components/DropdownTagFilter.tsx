@@ -48,7 +48,6 @@ function DropdownTagFilter(props: any) {
     for (var i of options) {
       choises.push(<Option {...i} />)
     }
-    console.log(choises)
     props.setSelectedOptions(choises)
 
   };
@@ -56,7 +55,7 @@ function DropdownTagFilter(props: any) {
   return (
     <div >
       <Select
-        defaultValue={props.filterOptions}
+        defaultValue={null}
         isMulti
         name={props.filterName} //make this flexible later
         options={props.filterOptions}

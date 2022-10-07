@@ -201,13 +201,14 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   );
 };
 
-export const Commits = () => {
+export const Commits = (props: any) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof ICommit>('title');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [commits, setCommits]: [ICommit[], (commits: ICommit[]) => void] = React.useState(defaultCommits);
+    const [originalCommits, setOriginalCommits]: [ICommit[], (commits: ICommit[]) => void] = React.useState(defaultCommits);
     const [loading, setLoading]: [boolean, (loading: boolean) => void] = React.useState<boolean>(true);
     const [error, setError]: [string, (error: string) => void] = React.useState("");
     const [token, setToken] = useLocalStorage("token", "");
@@ -221,6 +222,7 @@ export const Commits = () => {
                 "Authorization" : bearerToken
             },
         }).then((response: { data: ICommit[]; }) => {
+            setOriginalCommits(response.data);
             setCommits(response.data);
             setLoading(false);
           }).catch((ex: { response: { status: number; }; }) => {
@@ -232,6 +234,46 @@ export const Commits = () => {
             setLoading(false);
           });
     }, []); 
+
+
+
+
+    type Option = {
+      value: string;
+      label: string;
+  }
+  
+ /*  interface ICommit {
+    id: string;
+    title: string;
+    author_name: string;
+  } */
+
+
+  const filterChoises = props.filters
+    const filterArray: string[] = [];
+    for (var i of filterChoises) {
+        const obj: Option = ((Object.values(i))[4]) as Option
+        filterArray.push(obj.label)
+    }
+
+    useEffect(() => {
+      function findFilteredData(data: ICommit[]) {
+        let dataList: ICommit[] = [];
+        for (var i of filterArray) {
+            for (var j of data) {
+                if (i === j.author_name) {
+                  dataList.push(j)
+                }
+            }
+        }
+        return dataList;
+    }
+      setCommits(findFilteredData(originalCommits))
+
+    }, [originalCommits, filterArray]);
+
+
 
 
   const handleRequestSort = (
