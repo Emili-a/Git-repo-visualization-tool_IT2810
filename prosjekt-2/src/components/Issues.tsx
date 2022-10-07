@@ -36,6 +36,7 @@ interface IIssue {
     title: string;
     state: string;
     description: string;
+    created_at: string;
   }
 
 const defaultIssues:IIssue[] = [];
@@ -104,6 +105,12 @@ const headCells: readonly HeadCell[] = [
     numeric: true,
     disablePadding: false,
     label: 'Description',
+  },
+  {
+    id: 'created_at',
+    numeric: true,
+    disablePadding: false,
+    label: 'Date',
   },
 ];
 
@@ -238,36 +245,43 @@ export const Issues = () => {
           });
     }, []); 
 
-
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof IIssue,
-  ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const newSelected = issues.map((n) => n.title);
-      setSelected(newSelected);
-      return;
+    const dateStringer = (string: string) => {
+      var noT = string.split("T");
+      var stringDate = noT[0];
+      return stringDate;
     }
-    setSelected([]);
-  };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - issues.length) : 0;
+    const handleRequestSort = (
+      event: React.MouseEvent<unknown>,
+      property: keyof IIssue,
+    ) => {
+      const isAsc = orderBy === property && order === 'asc';
+      setOrder(isAsc ? 'desc' : 'asc');
+      setOrderBy(property);
+    };
+
+    const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.checked) {
+        const newSelected = issues.map((n) => n.title);
+        setSelected(newSelected);
+        return;
+      }
+      setSelected([]);
+    };
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+      setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+    };
+
+    const emptyRows =
+      page > 0 ? Math.max(0, (1 + page) * rowsPerPage - issues.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -307,7 +321,8 @@ export const Issues = () => {
                         {row.title}
                       </TableCell>
                       <TableCell align="right" width="10%">{row.state}</TableCell>
-                      <TableCell align="right" width="50%">{row.description}</TableCell>
+                      <TableCell align="right" width="40%">{row.description}</TableCell>
+                      <TableCell align="right" width="15%">{dateStringer(row.created_at)}</TableCell>
                     </TableRow>
                   );
                 })}

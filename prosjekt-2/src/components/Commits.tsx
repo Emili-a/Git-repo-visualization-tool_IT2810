@@ -36,6 +36,7 @@ interface ICommit {
     id: string;
     title: string;
     author_name: string;
+    authored_date: string;
   }
 
 
@@ -99,6 +100,12 @@ const headCells: readonly HeadCell[] = [
     numeric: true,
     disablePadding: false,
     label: 'Author',
+  },
+  {
+  id: 'authored_date',
+    numeric: true,
+    disablePadding: false,
+    label: 'Date',
   },
 ];
 
@@ -213,6 +220,12 @@ export const Commits = (props: any) => {
     const [error, setError]: [string, (error: string) => void] = React.useState("");
     const [token, setToken] = useLocalStorage("token", "");
     const [id, setId] = useLocalStorage("id", "");
+
+    const dateStringer = (string: string) => {
+      var noT = string.split("T");
+      var stringDate = noT[0];
+      return stringDate;
+    }
 
     useEffect(() => {
         var bearerToken = "Bearer " + token;
@@ -346,7 +359,8 @@ export const Commits = (props: any) => {
                       >
                         {row.title}
                       </TableCell>
-                      <TableCell align="right" width="50%">{row.author_name}</TableCell>
+                      <TableCell align="right" width="25%">{row.author_name}</TableCell>
+                      <TableCell align="right" width="25%">{dateStringer(row.authored_date)}</TableCell>
                     </TableRow>
                   );
                 })}
