@@ -1,14 +1,6 @@
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import reportWebVitals from './reportWebVitals';
-import Home from "./pages/RepoVisualsPage";
-import Api from "./Api";
+import React from "react";
 import RepoVisuals from "./pages/RepoVisualsPage";
-import Test from "./pages/test";
-import React, {useEffect, useState} from "react";
 import Login from "./Login";
-import { Commits } from "./components/Commits";
-import { Issues } from "./components/Issues";
 import { useLocalStorage } from "./useLocalStorage";
 
 //Browser routing er basert på model fra: https://www.w3schools.com/react/react_router.asp
@@ -16,25 +8,17 @@ import { useLocalStorage } from "./useLocalStorage";
 function App() {
   const [token, setToken] = useLocalStorage("token", "");
 
-  if(!token) {
+  if (!token) {
     return (
-    <div className="App">
-      <Login />
-    </div>
+      <div className="App">
+        <Login />
+      </div>
     )
   } else {
 
-  return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="Login" element={<Login />} />
-          <Route path="Issues" element={<Issues />} />
-          <Route path="RepoVisuals" element={<RepoVisuals />} />
-          <Route path="Test" element={<Test />} />
-        </Routes>
-      </BrowserRouter>
-    );
+    return (
+      <RepoVisuals />
+    )
   }
 }
 export default App;

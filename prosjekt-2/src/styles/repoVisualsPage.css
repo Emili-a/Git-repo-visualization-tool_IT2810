@@ -86,10 +86,6 @@ hr {
   border-color: #6b9080;
 }
 
-.filters {
-  display: flex
-}
-
 .sectWrapper {
   background-color: #b7e4c7;
   height: auto;
@@ -123,6 +119,10 @@ img {
   /* 768 standard breakpoint*/
 
   /* For desktop: */
+
+  .filters {
+    width: 50%;
+  }
 
   .header button {
     float: left;
