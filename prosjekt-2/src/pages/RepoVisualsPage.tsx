@@ -6,6 +6,7 @@ import Api from '../Api'
 import { Commits } from '../components/Commits';
 import { Issues } from '../components/Issues';
 import { LogOut } from '../components/LogOut';
+import { Chart } from '../components/CommitsChart';
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -47,7 +48,7 @@ const VisualizationPage = () => {
                         </div>
                         <div className="col-6">
                             <section className="sect2">
-                                <img src="https://www.tibco.com/sites/tibco/files/media_entity/2022-01/PieChart-01.svg" alt="piechart" />
+                                {<Chart />}
                             </section>
                         </div>
                         <hr />
