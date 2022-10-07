@@ -31,7 +31,7 @@ const VisualizationPage = () => {
                     <div className="col-12">
                         <h2>Commits</h2>
                         <div className="filters">
-                            <DropdownTagFilter setSelectedOptions={(selectedOptions: any) => setSelectedOptions(selectedOptions)} filterOptions={options} filterName="Author"/>
+                            <DropdownTagFilter setSelectedOptions={setSelectedOptions} filterOptions={options} filterName="Author"/>
                             <DropdownTagFilter filterOptions={options} filterName="Issues"/>
                             <p> info - filter ... {selectedOptions}</p>
                         </div>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { getValue } from '@testing-library/user-event/dist/utils';
+import React, { useState, useRef } from 'react';
 import Api from "../Api";
 import DropdownTagFilter from "./DropdownTagFilter";
 
@@ -14,6 +15,11 @@ const commits = [
     ['5', 'hei', 'Vanilla']]
 
 //let choosenTags = ['e', 't'];
+
+type Option = {
+    value: string;
+    label: string;
+}
 
 function findFilteredData(choosenTags: String[], data: String[][]) {
     let dataList: String = '';
@@ -39,12 +45,21 @@ function NewlineText(props: any) {
 
 
 
-function DataTable(props:any) {
-    const filters String[]= props.filters[1]
+function DataTable(props: any) {
+
+    const filterChoises = props.filters
+    const filterArray = [];
+    for (var i of filterChoises) {
+        const obj: Option = ((Object.values(i))[4]) as Option
+        filterArray.push(obj.label)
+    }
+    console.log(filterArray)
+
+
     return (
         <div >
-            <h2>{props.filters}</h2>
-            <h2> <NewlineText text={findFilteredData((props.filters), commits)} /></h2>;
+            <h2 id="filter">{props.filters}</h2>
+            <h2> <NewlineText text={findFilteredData((filterArray), commits)} /></h2>;
         </div>
     )
 }

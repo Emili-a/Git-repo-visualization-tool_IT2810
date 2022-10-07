@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Select from 'react-select'
 
 //https://react-select.com/home
@@ -21,20 +21,37 @@ const options: Option[] = [
 ]
 */
 
+type OptionProps = {
+  value: string;
+  label: string;
+}
+
+const Option: React.FC<OptionProps> = ({
+  label, value
+}) => {
+  return <option value={value}>{label}</option>
+}
+
 //pas props upp to Parent
 
 function DropdownTagFilter(props: any) {
-  //const [selectedOptions, setSelectedOptions] = useState([]);
-
 
   const handleChange = (options: any) => {
-    props.setSelectedOptions(options.map((o:any) => (
-      <option value={o.value}>{o.label}</option>
-    )));
+    /*
+      props.setSelectedOptions(options.map((o:any) => (
+        <option value={o.value}>{o.label}</option>
+      )));
+    */
+
+
+    const choises: any = []
+    for (var i of options) {
+      choises.push(<Option {...i} />)
+    }
+    console.log(choises)
+    props.setSelectedOptions(choises)
+
   };
-
-  //console.log(selectedOptions)
-
 
   return (
     <div >
