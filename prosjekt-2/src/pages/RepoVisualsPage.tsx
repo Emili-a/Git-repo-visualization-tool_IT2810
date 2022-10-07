@@ -35,7 +35,6 @@ const VisualizationPage = () => {
                         <div className="filters">
                             <DropdownTagFilter setSelectedOptions={setSelectedOptions} filterOptions={options} filterName="Author" />
                         </div>
-                        <hr />
                     </div>
                     <div className="col-6">
                         <section className="sect1">
@@ -51,7 +50,7 @@ const VisualizationPage = () => {
                 </div>
                 <div className="sectWrapper">
                     <div className="col-12">
-                        <h2>Issues</h2>
+                        <h2 className="isuues">Issues</h2>
 
                         <hr />
                     </div>

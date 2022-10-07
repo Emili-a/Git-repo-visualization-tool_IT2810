@@ -50,6 +50,11 @@ h2 {
   font-weight: 700;
 }
 
+.isuues {
+  margin: 2rem;
+  padding: 1rem;
+  font-size: 2rem;
+}
 p {
   margin: 0;
   color: #a4c3b2;
