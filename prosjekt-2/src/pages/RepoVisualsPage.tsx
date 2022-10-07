@@ -7,6 +7,7 @@ import { Commits } from '../components/Commits';
 import { Issues } from '../components/Issues';
 import { LogOut } from '../components/LogOut';
 import { Chart } from '../components/CommitsChart';
+import { ProjectName } from '../components/ProjectName';
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -26,9 +27,7 @@ const VisualizationPage = () => {
             <body>
                 <div className='header'>
                     {<LogOut />}
-                    <h1>
-                        Reponavn
-                    </h1>
+                    {<ProjectName />}
                     <hr />
                 </ div>
                 <main className="row">
