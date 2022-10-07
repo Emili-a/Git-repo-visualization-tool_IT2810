@@ -11,6 +11,8 @@ import { Commits } from "./components/Commits";
 import { Issues } from "./components/Issues";
 import { useLocalStorage } from "./useLocalStorage";
 
+//Browser routing er basert på model fra: https://www.w3schools.com/react/react_router.asp
+
 function App() {
   const [token, setToken] = useLocalStorage("token", "");
 
