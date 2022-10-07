@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DropdownTagFilter from '../components/DropdownTagFilter';
+import DataTable from '../components/DataTable'
 import '../styles/repoVisualsPage.css';
 import Api from '../Api'
 import { Commits } from '../components/Commits';
 import { Issues } from '../components/Issues';
 import { LogOut } from '../components/LogOut';
+import { Chart } from '../components/CommitsChart';
+
+const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+]
+
 
 const VisualizationPage = () => {
+    const [selectedOptions, setSelectedOptions] = useState([]);
+
     return (
         <div className='PageWrapper'>
             <head>
@@ -13,7 +25,7 @@ const VisualizationPage = () => {
             </head>
             <body>
                 <div className='header'>
-                        {<LogOut />}
+                    {<LogOut />}
                     <h1>
                         Reponavn
                     </h1>
@@ -22,8 +34,11 @@ const VisualizationPage = () => {
                 <main className="row">
                     <div className="sectWrapper">
                         <div className="col-12">
-                            <h2>Commits</h2>
-                            <p> info - filter ...</p>
+                            <div className="filters">
+                                <DropdownTagFilter setSelectedOptions={setSelectedOptions} filterOptions={options} filterName="Author" />
+                                <DropdownTagFilter filterOptions={options} filterName="Issues" />
+                                <p> info - filter ... {selectedOptions}</p>
+                            </div>
                             <hr />
                         </div>
                         <div className="col-6">
@@ -33,14 +48,15 @@ const VisualizationPage = () => {
                         </div>
                         <div className="col-6">
                             <section className="sect2">
-                                <img src="https://www.tibco.com/sites/tibco/files/media_entity/2022-01/PieChart-01.svg" alt="piechart"/>
+                                {<Chart />}
                             </section>
                         </div>
+                        <hr />
                     </div>
                     <div className="sectWrapper">
                         <div className="col-12">
                             <h2>Issues</h2>
-                                
+
                             <hr />
                         </div>
                         <div className="col-12">
