@@ -17,6 +17,8 @@
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "babel-jest": "^29.1.2",
+    "jest": "^29.1.2",
+    "jest-environment-jsdom": "^29.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-jsx": "^1.0.0",
