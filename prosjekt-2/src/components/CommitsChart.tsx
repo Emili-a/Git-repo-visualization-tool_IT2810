@@ -73,7 +73,7 @@ export const Chart = () => {
             setLoading(false);
           });
     }, []);
-// https://stackoverflow.com/questions/52134350/set-height-and-width-for-responsive-chart-using-recharts-barchart
+    
     return (
         <div className="Pie" style={{ height: "100%", width: '100%'}}>
             <h1>Commits per person</h1>
