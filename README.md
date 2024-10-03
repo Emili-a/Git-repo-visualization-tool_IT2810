@@ -1,3 +1,9 @@
+Created by a student group as part of the course IT2810 Webutvikling at NTNU in 2022.
+
+Original GitLab repo: https://gitlab.stud.idi.ntnu.no/it2810-archive/it2810-h22/Team-61/prosjekt-2
+
+---
+
 # Prosjekt 2
 Prosjekt 2 er et react-basert git repo-visualiseringsverktøy utviklet etter oppgavespesifikasjonen. Prosjekt 2 lar deg logge inn i et git repo ved hjelp av en ID og en gyldig token. Når du har logget inn blir du tatt videre til en side som gir deg oversikt over commits og issues for ditt repo. Både commits og issues vises i tabeller og de forskjellige verdiene i tabellene kan sorteres alfabetisk. I tillegg er det et pie-chart koblet til commits som viser forholdet antall commits for hvert gruppemedlem. 
 
